@@ -12,7 +12,7 @@ clean() {
 
 # Create the executable
 build() {
-    GOOS=linux GOARCH=amd64 go build -o ./bin/main main.go
+    GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./bin/main main.go
 }
 
 case "$1" in
