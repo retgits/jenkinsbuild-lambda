@@ -12,7 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/kms"
 	"github.com/kelseyhightower/envconfig"
-	"github.com/retgits/lambda-jenkinsbuild/jenkins"
+	"github.com/retgits/jenkinsbuild-lambda/jenkins"
 )
 
 type config struct {

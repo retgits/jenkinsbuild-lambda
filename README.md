@@ -1,4 +1,4 @@
-# lambda-jenkinsbuild
+# jenkinsbuild-lambda
 
 Trigger builds using the [Jenkins REST API](https://wiki.jenkins.io/display/JENKINS/Remote+access+API) based on messages published on an [Amazon SQS](https://aws.amazon.com/sqs/) queue.
 

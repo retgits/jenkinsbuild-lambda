@@ -1,4 +1,4 @@
-module github.com/retgits/lambda-jenkinsbuild
+module github.com/retgits/jenkinsbuild-lambda
 
 go 1.13
 

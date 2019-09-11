@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  lambda-jenkinsbuild
+  jenkinsbuild-lambda
   
-  SAM Template for lambda-jenkinsbuild
+  SAM Template for jenkinsbuild-lambda
 Globals:
   Function:
     Timeout: 5
@@ -27,7 +27,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: bin/
-      Handler: lambda-jenkinsbuild
+      Handler: jenkinsbuild-lambda
       Runtime: go1.x
       Events:
         SQSEvent:
@@ -50,5 +50,5 @@ Resources:
           #JENKINS_TOKEN: "" ## Uncomment this and add a base64 encoded variable when testing locally
       Tags:
         version: xxx
-      Description: "lambda-jenkinsbuild receives messages from an SQS queue and triggers a Jenkins job based on it"
+      Description: "jenkinsbuild-lambda receives messages from an SQS queue and triggers a Jenkins job based on it"
       MemorySize: 128
