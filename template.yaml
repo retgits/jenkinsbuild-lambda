@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  lambda-jenkinsbuild
+  
+  SAM Template for lambda-jenkinsbuild
+Globals:
+  Function:
+    Timeout: 5
+
+Parameters:
+  JenkinsQueue:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: '/prod/jenkins/sqsqueue'
+  JenkinsToken:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: '/prod/jenkins/token'
+  JenkinsUser:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: '/prod/jenkins/user'
+  JenkinsURL:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: '/prod/jenkins/url'
+
+Resources:
+  JenkinsBuildFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: bin/
+      Handler: lambda-jenkinsbuild
+      Runtime: go1.x
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !Ref JenkinsQueue
+            BatchSize: 10
+            Enabled: true
+      Policies:
+        - AWSLambdaRole
+        - AWSLambdaSQSQueueExecutionRole
+      Environment:
+        Variables:
+          AWS_REGION: "us-west-2"
+          JENKINS_URL: !Ref JenkinsURL
+          JENKINS_USER: !Ref JenkinsUser
+          JENKINS_TOKEN: !Ref JenkinsToken
+          #JENKINS_URL: "" ## Uncomment this and add a base64 encoded variable when testing locally
+          #JENKINS_USER: "" ## Uncomment this and add a base64 encoded variable when testing locally
+          #JENKINS_TOKEN: "" ## Uncomment this and add a base64 encoded variable when testing locally
+      Tags:
+        version: xxx
+      Description: "lambda-jenkinsbuild receives messages from an SQS queue and triggers a Jenkins job based on it"
+      MemorySize: 128
