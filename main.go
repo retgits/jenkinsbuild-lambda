@@ -16,7 +16,7 @@ import (
 )
 
 type config struct {
-	AWSRegion    string `required:"true" split_words:"true"`
+	AWSRegion    string `required:"true" split_words:"true" envconfig:"AWS_REGION"`
 	JenkinsURL   string `required:"true" split_words:"true"`
 	JenkinsUser  string `required:"true" split_words:"true"`
 	JenkinsToken string `required:"true" split_words:"true"`
